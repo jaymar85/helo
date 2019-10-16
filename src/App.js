@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import routes from './routes';
+import Nav from './Components/Nav/Nav';
+import Auth from './Components/Auth/Auth';
+import {connect} from 'react-redux';
+import {getSession} from './Ducks/Reducers/UserReducer'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  componentDidMount() {
+    this.props.getSession();
+  }
+
+  render() {
+    return (
+      <div className="App">
+      {this.props.userId ?
+        <Auth />
+      :
+        <div>
+          <Nav/>
+          {routes}
+        </div>
+      }
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = reduxState => {
+  return {
+    user_id: reduxState.userReducer.user_id,
+  };
+};
+
+export default connect(mapStateToProps,
+  {
+    getSession
+  }
+)(App);
