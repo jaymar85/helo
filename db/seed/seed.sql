@@ -24,7 +24,7 @@ CREATE TABLE posts (
     user_id INTEGER NOT NULL REFERENCES users(user_id)
 );
 
--- Get all public posts
+-- Get posts
 SELECT * FROM posts p
 INNER JOIN users u
 ON u.user_id = p.user_id;
@@ -35,3 +35,10 @@ INSERT INTO posts
 VALUES
 ($1, $2, $3, $4)
 RETURNING *;
+
+-- Search for post by title
+SELECT p.title, p.post_image, p.content, p.user_id 
+FROM posts p
+INNER JOIN users u 
+ON p.user_id = u.user_id
+WHERE p.title ILIKE $1;

@@ -8,7 +8,7 @@ const session = require('express-session');
 const authController = require("./controllers/authController");
 const postController = require("./controllers/postController");
 
-const {CONNECTION_STRING, SERVER_PORT,  SESSION_SECRET} = process.env;
+const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env;
 
 // Middle Earth
 app.use(express.json());
@@ -22,10 +22,10 @@ app.use(session({
     }
 }));
 
-// Database
+// Database Connection
 massive(CONNECTION_STRING).then(dbInstance => {
     app.set('db', dbInstance);
-    console.log('Connected to database');
+    console.log('Connected to database, Yeah!');
 })
 
 ///// Endpoints /////
@@ -39,6 +39,7 @@ app.post('/auth/logout', authController.logout);
 // Post
 app.get('/api/posts', postController.getPosts);
 app.get('/api/posts/title', postController.getPostsByTitle);
+app.post('/api/post', postController.addPost);
 
 app.listen(SERVER_PORT, () => {
     console.log(`Server listening on ${SERVER_PORT}`)
