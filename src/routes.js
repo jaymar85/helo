@@ -10,7 +10,10 @@ export default (
     <Switch>
         <Route component={Auth} path='/' />
         <Route component={Dashboard} path='/dashboard'/>
-        <Route component={Post} path='/post/:postid'/>
         <Route component={Form} path='/new'/>
+        <Route component={Post} path='/post/:postid'/>
+        <Route render={() => {
+            return <h1>404 Not Found</h1>
+        }} />
     </Switch>
 )

@@ -4,7 +4,7 @@ import routes from './routes';
 import Nav from './Components/Nav/Nav';
 import Auth from './Components/Auth/Auth';
 import {connect} from 'react-redux';
-import {getSession} from './Ducks/Reducers/UserReducer'
+import {getSession} from './Ducks/Reducers/userReducer'
 
 class App extends Component {
 
@@ -15,10 +15,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      {this.props.userId ?
+      {this.props.user_id ?
         <Auth />
       :
-        <div>
+        <div className="navigation">
           <Nav/>
           {routes}
         </div>

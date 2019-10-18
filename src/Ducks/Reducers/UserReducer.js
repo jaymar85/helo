@@ -4,6 +4,7 @@ import axios from 'axios';
 const initialState = {
     user_id: null,
     username: '',
+    password: '',
     user_image: ''
 }
 
@@ -48,24 +49,29 @@ export default function Reducer(state=initialState, action) {
                 ...state,
                 userId: payload.data.user_id,
                 username: payload.data.username,
-                userImage: payload.data.user_image
+                user_image: payload.data.user_image
             };
         case `${REGISTER_USER}_FULFILLED`:
             return {
                 ...state,
                 userId: payload.data.user_id,
-                username: payload.data.username
+                username: payload.data.username,
+                password: payload.data.password,
+                user_image: payload.data.user_image
             };
         case `${LOGIN_USER}_FULFILLED`:
             return {
                 ...state,
                 userId: payload.data.user_id,
                 username: payload.data.username,
+                password: payload.data.password,
                 user_image: payload.data.user_image
             };
         case `${LOGOUT_USER}_FULFILLED`:
             return {  
-                ...initialState          
+                ...initialState,
+                user_id: null,
+                username: ""          
             };            
         default: return state;
     }

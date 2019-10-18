@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getSession, registerUser, loginUser} from '../../Ducks/Reducers/UserReducer';
+import {getSession, registerUser, loginUser} from '../../Ducks/Reducers/userReducer';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 

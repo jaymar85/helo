@@ -2,13 +2,17 @@ import axios from 'axios';
 
 // Initial State
 const initialState = {
-    posts: []
+    posts: [],
+    title: '',
+    post_image: '',
+    content: ''
 }
 
 // Action types
 const GET_USER_POSTS = 'GET_USER_POSTS';
 const ADD_POST = 'ADD_POST';
 const GET_POSTS_BY_TITLE = 'GET_POSTS_BY_TITLE';
+const DELETE_POST = "DELETE_POST";
 
 // Functions
 export function getUserPosts() {
@@ -27,6 +31,12 @@ export function addPost(newPost) {
     return {
         type: ADD_POST,
         payload: axios.post(`/api/post`, newPost)
+    }
+}
+export function deletePost(post_id) {
+    return {
+        type: DELETE_POST,
+        payload: axios.delete(`/api/post/${post_id}`)
     }
 }
 
@@ -48,7 +58,12 @@ export default function Reducer(state=initialState, action) {
             return {
                 ...state,
                 posts: payload.data
-            };   
+            };
+        case `${DELETE_POST}_FULFILLED`:
+            return {
+                ...state,
+                posts: payload.data
+            };
         default: 
             return state;
     }
